@@ -11,11 +11,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   provider: ^6.0.5
+  flutter_native_splash: ^2.2.16
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  image: assets/images/hello.png
+  color: "#FBBC05"
+  fullscreen: true
+  android: true
+  ios: true
+
 flutter:
   uses-material-design: true
   assets:

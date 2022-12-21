@@ -15,7 +15,7 @@ class _SampleUsageExpensesState extends State<SampleUsageExpenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Incomes Types"),
+        title: const Text("Expenses Types"),
       ),
       body: Consumer<ExpensesViewModel>(
         builder: (context, viewModel, child) {

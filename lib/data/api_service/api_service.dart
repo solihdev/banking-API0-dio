@@ -21,7 +21,7 @@ class ApiService extends ApiClient {
       if (response.statusCode == 200) {
         myResponse.data = (response.data as List)
             .map((e) => IncomesModel.fromJson(e))
-            .toList();
+            .toList()?? [];
       }
     } catch (error) {
       myResponse = MyResponse(
