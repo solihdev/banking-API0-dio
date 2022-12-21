@@ -18,22 +18,12 @@ class _SampleUsageIncomesState extends State<SampleUsageIncomes> {
       ),
       body: Consumer<IncomesViewModel>(
         builder: (context, viewModel, child) {
-          if (viewModel.incomesModel == null) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Center(
-                  child: Text("No data Yet"),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      context.read<IncomesViewModel>().fetchIncomes();
-                    },
-                    child: const Text("Get Data")),
-              ],
+          if (viewModel.errorForUi.isNotEmpty) {
+            return Center(
+              child: Text(viewModel.errorForUi),
             );
           }
-          return ListView.builder(
+          return viewModel.incomesModel!=null?ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: viewModel.incomesModel!.length,
               itemBuilder: (BuildContext context, int index) {
@@ -99,7 +89,13 @@ class _SampleUsageIncomesState extends State<SampleUsageIncomes> {
                     ),
                   ),
                 );
-              });
+              }):   Center(
+                child: ElevatedButton(
+                onPressed: () {
+                  context.read<IncomesViewModel>().fetchIncomes();
+                },
+                child: const Text("Get Data")),
+              );
         },
       ),
     );

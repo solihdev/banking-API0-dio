@@ -1,3 +1,4 @@
+import 'package:banking_api_dio/data/api_service/api_service.dart';
 import 'package:banking_api_dio/data/models/incomes_model.dart';
 import 'package:banking_api_dio/data/repository/incomes_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,9 +8,16 @@ class IncomesViewModel extends ChangeNotifier {
 
   List<IncomesModel>? incomesModel;
   IncomesRepository incomesRepository;
+  String errorForUi = "";
 
   fetchIncomes() async {
-    incomesModel = await incomesRepository.getAllIncomes() as List<IncomesModel>;
+    MyResponse myResponse = await incomesRepository.getAllIncomes();
+
+    if (myResponse.error.isEmpty) {
+      incomesModel = myResponse.data as List<IncomesModel>;
+    } else {
+      errorForUi = myResponse.error;
+    }
     notifyListeners();
   }
 }

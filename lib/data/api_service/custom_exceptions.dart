@@ -66,7 +66,7 @@ class DeadlineExceededException extends DioError {
 class ReceiveTimeOutException extends DioError {
   ReceiveTimeOutException(RequestOptions r) : super(requestOptions: r);
 
-  String myError = "ReceiveTimeOutException";
+  // String myError = "ReceiveTimeOutException";
 
   @override
   String toString() {

@@ -8,5 +8,5 @@ class IncomesRepository {
 
   ApiService apiService;
 
-  Future<List<IncomesModel?>?> getAllIncomes() => apiService.getAllIncomes();
+  Future<MyResponse> getAllIncomes() => apiService.getAllIncomes();
 }
