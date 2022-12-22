@@ -1,17 +1,8 @@
-import 'package:banking_api_dio/data/models/incomes_model.dart';
+import 'package:banking_api_dio/data/models/incomes_model/incomes_model.dart';
 import 'package:dio/dio.dart';
-import '../models/expenses_model.dart';
+import '../models/transactions-expenses/expenses_model.dart';
+import '../models/my_response/my_response.dart';
 import 'api_client.dart';
-
-class MyResponse {
-  MyResponse({
-    this.data,
-    required this.error,
-  });
-
-  dynamic data;
-  String error = "";
-}
 
 class ApiService extends ApiClient {
   Future<MyResponse> getAllIncomes() async {
@@ -20,8 +11,9 @@ class ApiService extends ApiClient {
       Response response = await dio.get("${dio.options.baseUrl}/income-types");
       if (response.statusCode == 200) {
         myResponse.data = (response.data as List)
-            .map((e) => IncomesModel.fromJson(e))
-            .toList()?? [];
+                .map((e) => IncomesModel.fromJson(e))
+                .toList() ??
+            [];
       }
     } catch (error) {
       myResponse = MyResponse(
@@ -35,7 +27,8 @@ class ApiService extends ApiClient {
   Future<MyResponse> getAllExpenses() async {
     MyResponse myResponse = MyResponse(error: "");
     try {
-      Response response = await dio.get("${dio.options.baseUrl}/transactions-expenses");
+      Response response =
+          await dio.get("${dio.options.baseUrl}/transactions-expenses");
       if (response.statusCode == 200) {
         myResponse.data = (response.data as List)
             .map((e) => ExpensesModel.fromJson(e))

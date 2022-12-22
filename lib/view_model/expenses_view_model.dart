@@ -1,7 +1,7 @@
-import 'package:banking_api_dio/data/api_service/api_service.dart';
-import 'package:banking_api_dio/data/models/expenses_model.dart';
+import 'package:banking_api_dio/data/models/transactions-expenses/expenses_model.dart';
 import 'package:banking_api_dio/data/repository/expenses_repository.dart';
 import 'package:flutter/cupertino.dart';
+import '../data/models/my_response/my_response.dart';
 
 class ExpensesViewModel extends ChangeNotifier {
   ExpensesViewModel({required this.expensesRepository});
