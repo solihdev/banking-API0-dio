@@ -12,6 +12,7 @@ dependencies:
   dio: ^4.0.6
   provider: ^6.0.5
   flutter_native_splash: ^2.2.16
+  file_picker: ^5.2.4
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'package:banking_api_dio/data/models/transactions-expenses/data_model.dart';
+import 'package:banking_api_dio/data/models/transactions-expenses/expenses_model.dart';
 import 'package:banking_api_dio/view_model/expenses_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,79 +26,32 @@ class _SampleUsageExpensesState extends State<SampleUsageExpenses> {
               child: Text(viewModel.errorForUi),
             );
           }
-          return viewModel.expensesModel!=null?ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: viewModel.expensesModel!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+          return viewModel.expenses.isEmpty
+              ? Center(child: Text(viewModel.expenses.length.toString()))
+              : ListView(
+                  shrinkWrap: true,
+                  children: List.generate(viewModel.expenses.length, (index) {
+                    ExpensesModel upperListItem = viewModel.expenses[index];
+                    return ListView(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: 150,
-                              height: 180,
-                              child: Image.network(
-                                viewModel.expensesModel![index].dataModel[index].receiverModel.brandImage,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: Text(
-                                    "DATA: ${viewModel.expensesModel![index].transferDate}",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                              ],
-                            ),
-                          ],
+                        Text(
+                          upperListItem.transferDate,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 40,
+                          ),
                         ),
+                        ...List.generate(upperListItem.dataModel.length,
+                            (index) {
+                          DataModel innerList = upperListItem.dataModel[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Text(innerList.receiverModel.name),
+                          );
+                        })
                       ],
-                    ),
-                  ),
-                );
-              }):   Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  context.read<IncomesViewModel>().fetchIncomes();
-                },
-                child: const Text("Get Data")),
-          );
+                    );
+                  }));
         },
       ),
     );

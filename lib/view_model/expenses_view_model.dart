@@ -4,17 +4,19 @@ import 'package:flutter/cupertino.dart';
 import '../data/models/my_response/my_response.dart';
 
 class ExpensesViewModel extends ChangeNotifier {
-  ExpensesViewModel({required this.expensesRepository});
+  ExpensesViewModel({required this.expensesRepository}){
+    fetchExpenses();
+  }
 
-  List<ExpensesModel>? expensesModel;
+  List<ExpensesModel> expenses=[];
   ExpensesRepository expensesRepository;
   String errorForUi = "";
 
-  fetchIncomes() async {
+  fetchExpenses() async {
     MyResponse myResponse = await expensesRepository.getAllExpenses();
 
     if (myResponse.error.isEmpty) {
-      expensesModel = myResponse.data as List<ExpensesModel>;
+      expenses = myResponse.data as List<ExpensesModel>;
     } else {
       errorForUi = myResponse.error;
     }
