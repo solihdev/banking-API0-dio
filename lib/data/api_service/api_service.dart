@@ -8,7 +8,7 @@ class ApiService extends ApiClient {
   Future<MyResponse> getAllIncomes() async {
     MyResponse myResponse = MyResponse(error: "");
     try {
-      Response response = await dio.get("${dio.options.baseUrl}/income-types");
+      Response response = await dio.get("${dio.options.baseUrl}/");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = (response.data as List)
                 .map((e) => IncomesModel.fromJson(e))
